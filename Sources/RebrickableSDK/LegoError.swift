@@ -12,7 +12,7 @@ public enum LegoError: Error {
     
     var message: String {
         switch self {
-            case .decode: return ""
+            case .decode: return "decoding failed"
             case .formatRequestWrong : return "Something was wrong with the format of your request"
             case .invalidApiKey : return "Unauthorized - your API key is invalid"
             case .notItemAcess : return "Forbidden - you do not have access to operate on the requested item(s)"
