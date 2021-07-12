@@ -2,7 +2,7 @@ import Foundation
 import Combine
 
 public enum LegoError: Error {
-    case decode
+    case decode(type: DecodingError)
     case formatRequestWrong
     case invalidApiKey
     case notItemAcess
@@ -27,7 +27,7 @@ extension Publisher {
     func mapToLegoError() -> Publishers.MapError<Self, LegoError> {
         mapError { error -> LegoError in
             switch error {
-                case is DecodingError: return LegoError.decode
+            case is DecodingError: return LegoError.decode(type: error as! DecodingError)
                 case is URLError: return error.toLegoError
                 default: return .generic(error)
             }
