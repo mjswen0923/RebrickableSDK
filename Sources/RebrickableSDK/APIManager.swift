@@ -31,10 +31,7 @@ final class APIManager {
 extension APIManager {
     func getItem<T: Codable>(with url: URL) -> AnyPublisher<T, LegoError> {
         makeRequest(to: url, withHttpMethod: .get)
-            .map {
-                print(String(data: $0.data, encoding: .utf8))
-                return $0.data
-            }
+            .map { $0.data }
             .decode(type: T.self, decoder: JSONDecoder())
             .mapToLegoError()
             .eraseToAnyPublisher()
